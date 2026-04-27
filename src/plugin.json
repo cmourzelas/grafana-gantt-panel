@@ -2,7 +2,7 @@
   "$schema": "https://github.com/grafana/grafana/raw/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "panel",
   "name": "Gantt",
-  "id": "marcusolsson-gantt-panel",
+  "id": "ag2r-gantt-panel",
   "info": {
     "description": "Tasks and processes over time",
     "author": {
