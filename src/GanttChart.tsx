@@ -8,7 +8,7 @@ import {
   SelectableValue,
   TimeRange,
 } from '@grafana/data';
-import { Badge, graphTimeFormat, Select, useStyles2, useTheme2 } from '@grafana/ui';
+import { Badge, Select, useStyles2, useTheme2 } from '@grafana/ui';
 import * as d3 from 'd3';
 import dayjs from 'dayjs';
 import { getFormattedDisplayValue, measureText } from 'grafana-plugin-support';
@@ -45,6 +45,28 @@ interface Props {
 
   experiments: any;
 }
+
+const getXAxisTimeFormat = (tickCount: number, fromMs: number, toMs: number): string => {
+  const spanMs = Math.max(toMs - fromMs, 1);
+  const tickSpanMs = spanMs / Math.max(tickCount, 1);
+
+  if (tickSpanMs < 1000) {
+    return 'HH:mm:ss.SSS';
+  }
+  if (tickSpanMs < 60 * 1000) {
+    return 'HH:mm:ss';
+  }
+  if (tickSpanMs < 60 * 60 * 1000) {
+    return 'HH:mm';
+  }
+  if (tickSpanMs < 24 * 60 * 60 * 1000) {
+    return 'MM-DD HH:mm';
+  }
+  if (tickSpanMs < 365 * 24 * 60 * 60 * 1000) {
+    return 'YYYY-MM-DD';
+  }
+  return 'YYYY';
+};
 
 export const GanttChart = ({
   textField,
@@ -221,7 +243,7 @@ export const GanttChart = ({
     }
 
     const range = scaleX.domain();
-    const format = graphTimeFormat(scaleX.ticks().length, range[0].valueOf(), range[1].valueOf());
+    const format = getXAxisTimeFormat(scaleX.ticks().length, range[0].valueOf(), range[1].valueOf());
     return dateTimeFormat(d as number, { format, timeZone });
   });
 
