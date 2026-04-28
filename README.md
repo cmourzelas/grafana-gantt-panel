@@ -19,7 +19,7 @@ Gantt charts display a list of _tasks over time_, where each task is visualized 
 - Compare recurring sets of tasks by grouping them, such as data pipelines that run in regular intervals.
 - Display additional metadata from your data source as labels
 
-![Screenshot](https://github.com/cmourzelasn/ag2r-gantt-panel/raw/main/src/img/dark.png)
+![Screenshot](https://github.com/cmourzelas/ag2r-gantt-panel/raw/main/src/img/dark.png)
 
 ## Configuration
 
