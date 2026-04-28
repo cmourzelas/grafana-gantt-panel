@@ -1,28 +1,66 @@
 {
-  "name": "marcusolsson-gantt-panel",
-  "version": "0.8.1",
-  "description": "A Gantt visualization for Grafana",
-  "keywords": [
-    "grafana",
-    "gantt"
-  ],
-  "license": "Apache-2.0",
+  "name": "gantt",
+  "version": "1.0.0",
   "scripts": {
-    "build": "grafana-toolkit plugin:build",
-    "test": "grafana-toolkit plugin:test",
-    "dev": "grafana-toolkit plugin:dev",
-    "watch": "grafana-toolkit plugin:dev --watch",
-    "sign": "grafana-toolkit plugin:sign"
+    "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
+    "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
+    "test": "jest --watch --onlyChanged",
+    "test:ci": "jest --passWithNoTests --maxWorkers 4",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --cache .",
+    "lint:fix": "npm run lint -- --fix && prettier --write --list-different .",
+    "e2e": "playwright test",
+    "server": "docker compose up --build",
+    "sign": "npx --yes @grafana/sign-plugin@latest"
   },
-  "homepage": "https://grafana.com/plugins/marcusolsson-gantt-panel",
-  "bugs": "https://github.com/marcusolsson/grafana-gantt-panel/issues",
-  "repository": "github:marcusolsson/grafana-gantt-panel",
-  "author": {
-    "name": "Marcus Olsson",
-    "email": "marcus.olsson@hey.com",
-    "url": "https://marcus.se.net"
-  },
-  "dependencies": {
+  "author": "Ag2r",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@grafana/eslint-config": "^9.0.0",
+    "@grafana/plugin-e2e": "^3.6.1",
+    "@grafana/tsconfig": "^2.0.1",
+    "@playwright/test": "^1.57.0",
+    "@stylistic/eslint-plugin-ts": "^4.4.0",
+    "@swc/core": "^1.15.0",
+    "@swc/helpers": "^0.5.0",
+    "@swc/jest": "^0.2.0",
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.0",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.0",
+    "eslint-plugin-jsdoc": "^52.0.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "eslint-webpack-plugin": "^5.0.0",
+    "fork-ts-checker-webpack-plugin": "^9.1.0",
+    "glob": "^11.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "imports-loader": "^5.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.6.0",
+    "replace-in-file-webpack-plugin": "^1.0.0",
+    "sass": "^1.89.0",
+    "sass-loader": "^16.0.0",
+    "semver": "^7.7.0",
+    "style-loader": "^4.0.0",
+    "swc-loader": "^0.2.0",
+    "terser-webpack-plugin": "^5.3.0",
+    "ts-node": "^10.9.0",
+    "typescript": "5.9.2",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.0",
+    "webpack-livereload-plugin": "^3.0.2",
+    "webpack-subresource-integrity": "^5.1.0",
+    "webpack-virtual-modules": "^0.6.2",
     "@tippyjs/react": "^4.1.0",
     "@types/humanize-duration": "^3.18.1",
     "dayjs": "^1.10.4",
@@ -31,16 +69,20 @@
     "humanize-duration": "^3.25.1",
     "moment-duration-format": "^2.3.2"
   },
-  "devDependencies": {
-    "@emotion/css": "11.7.1",
-    "@grafana/data": "9.0.1",
-    "@grafana/runtime": "9.0.1",
-    "@grafana/toolkit": "9.0.1",
-    "@grafana/ui": "9.0.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@emotion/css": "11.10.6",
+    "@grafana/data": "12.4.2",
+    "@grafana/i18n": "12.4.2",
+    "@grafana/runtime": "12.4.2",
+    "@grafana/ui": "12.4.2",
+    "@grafana/schema": "12.4.2",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
     "@types/d3": "^6.2.0",
     "@types/moment-duration-format": "^2.2.2"
   },
-  "engines": {
-    "node": ">=14"
-  }
+  "packageManager": "npm@11.12.1"
 }
